@@ -11,6 +11,7 @@ public class LibrarySystem
         private String author;
         private int year;
         private int copiesAvailable;
+        private int borrowCount;
 
         public Book(String ISBN, String title, String author, int year, int copiesAvailable) {
 
@@ -34,6 +35,8 @@ public class LibrarySystem
             this.year = year;
             // Ensure at least one copy is available
             this.copiesAvailable = Math.max(copiesAvailable, 1);
+            this.borrowCount = 0;
+
         }
 
         public String getISBN() {
@@ -62,13 +65,19 @@ public class LibrarySystem
         public void borrowBook() {
             if (copiesAvailable > 0) {
                 copiesAvailable--;
+                borrowCount++;
             } else {
                 throw new IllegalStateException("No copies available to borrow.");
             }
         }
 
         public void returnBook() {
-            copiesAvailable++;
+            if (borrowCount > 0) {
+                copiesAvailable++;
+                borrowCount--;
+            } else {
+                throw new IllegalStateException("No copies have been borrowed.");
+            }
         }
     }
 
@@ -117,7 +126,11 @@ public class LibrarySystem
         @Override
         public void returnBook(String ISBN) {
             if (bookMap.containsKey(ISBN)) {
-                bookMap.get(ISBN).returnBook();
+                try {
+                    bookMap.get(ISBN).returnBook();
+                } catch (IllegalStateException e) {
+                    throw e;
+                }
             }else {
                 throw new IllegalArgumentException("Book with ISBN '" + ISBN + "' not found.");
             }

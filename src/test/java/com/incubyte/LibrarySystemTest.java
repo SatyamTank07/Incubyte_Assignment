@@ -162,4 +162,22 @@ public class LibrarySystemTest
         assertEquals(expectedMessage, actualMessage, "Exception message should match expected message.");
     }
 
+    @Test
+    public void testReturnBookWithNoBorrowedCopies() {
+        LibraryManagementSystem library = new LibraryManagementSystem();
+        Book book = new Book("978-0135166307", "Effective Java", "Joshua Bloch", 2018, 1);
+
+        library.addBook(book);
+
+        // This should throw an IllegalStateException because no copies have been borrowed.
+        Exception exception = assertThrows(IllegalStateException.class, () -> {
+            library.returnBook("978-0135166307");
+        });
+
+        // Check that the exception message is as expected
+        assertEquals("No copies have been borrowed.", exception.getMessage());
+
+    }
+
+
 }
