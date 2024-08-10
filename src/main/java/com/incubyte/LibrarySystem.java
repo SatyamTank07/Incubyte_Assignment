@@ -116,7 +116,11 @@ public class LibrarySystem
 
         @Override
         public void returnBook(String ISBN) {
-            bookMap.get(ISBN).returnBook();
+            if (bookMap.containsKey(ISBN)) {
+                bookMap.get(ISBN).returnBook();
+            }else {
+                throw new IllegalArgumentException("Book with ISBN '" + ISBN + "' not found.");
+            }
         }
         @Override
         public Book getBook(String ISBN) {

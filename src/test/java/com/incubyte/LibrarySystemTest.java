@@ -146,5 +146,20 @@ public class LibrarySystemTest
         assertEquals(1, returnedBook.getCopiesAvailable(), "Copies should increase after returning the book");
     }
 
+    @Test
+    public void testReturnNonExistentBook() {
+        LibraryManagementSystem library = new LibraryManagementSystem();
+
+        String nonExistingISBN = "000-0000000000";
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            library.returnBook(nonExistingISBN);
+        });
+
+        String expectedMessage = "Book with ISBN '" + nonExistingISBN + "' not found.";
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage, "Exception message should match expected message.");
+    }
 
 }
