@@ -66,12 +66,18 @@ public class LibrarySystem
                 throw new IllegalStateException("No copies available to borrow.");
             }
         }
+
+        public void returnBook() {
+            copiesAvailable++;
+        }
     }
 
     interface Library {
         void addBook(Book book);
 
         void borrowBook(String ISBN);
+
+        void returnBook(String ISBN);
 
         Book getBook(String ISBN);
     }
@@ -103,9 +109,15 @@ public class LibrarySystem
         public void borrowBook(String ISBN) {
             if (bookMap.containsKey(ISBN)) {
                 bookMap.get(ISBN).borrowBook();
+            }else {
+                throw new IllegalArgumentException("Book with ISBN '" + ISBN + "' not found.");
             }
         }
 
+        @Override
+        public void returnBook(String ISBN) {
+            bookMap.get(ISBN).returnBook();
+        }
         @Override
         public Book getBook(String ISBN) {
             return bookMap.get(ISBN);

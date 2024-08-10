@@ -133,4 +133,18 @@ public class LibrarySystemTest
         }, "Should throw IllegalStateException when no copies are available to borrow");
     }
 
+    @Test
+    public void testReturnBookSuccessfully() {
+        LibraryManagementSystem library = new LibraryManagementSystem();
+        Book book = new Book("978-0135166307", "Effective Java", "Joshua Bloch", 2018, 1);
+
+        library.addBook(book);
+        library.borrowBook("978-0135166307");
+        library.returnBook("978-0135166307");
+
+        Book returnedBook = library.getBook("978-0135166307");
+        assertEquals(1, returnedBook.getCopiesAvailable(), "Copies should increase after returning the book");
+    }
+
+
 }
