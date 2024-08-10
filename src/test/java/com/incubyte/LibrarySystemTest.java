@@ -79,4 +79,19 @@ public class LibrarySystemTest
         }
     }
 
+    @Test
+    public void testAddBookWithZeroCopies() {
+        LibraryManagementSystem library = new LibraryManagementSystem();
+        Book book = new Book("978-0135166307", "Effective Java", "Joshua Bloch", 2018, 0);
+
+        // Add book to library
+        library.addBook(book);
+
+        // Retrieve the book and check the number of copies
+        Book addedBook = library.getBook("978-0135166307");
+        assertNotNull(addedBook, "Book should be added to the library");
+        assertEquals(1, addedBook.getCopiesAvailable(), "Book should have at least one copy");
+
+    }
+
 }

@@ -32,7 +32,8 @@ public class LibrarySystem
             this.title = title;
             this.author = author;
             this.year = year;
-            this.copiesAvailable = copiesAvailable;
+            // Ensure at least one copy is available
+            this.copiesAvailable = Math.max(copiesAvailable, 1);
         }
 
         public String getISBN() {
@@ -73,7 +74,10 @@ public class LibrarySystem
             if (book == null) {
                 throw new NullPointerException("Book cannot be null");
             }
-                bookMap.put(book.getISBN(), book);
+            if (book.getCopiesAvailable() < 1) {
+                throw new IllegalArgumentException("Book should have at least one copy");
+            }
+            bookMap.put(book.getISBN(), book);
         }
 
         @Override
