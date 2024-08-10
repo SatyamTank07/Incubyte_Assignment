@@ -1,10 +1,14 @@
 package com.incubyte;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 //import org.junit.Test;
+
+import com.incubyte.LibrarySystem.LibraryManagementSystem;
+import com.incubyte.LibrarySystem.Book;
 
 public class LibrarySystemTest 
 {
@@ -52,6 +56,17 @@ public class LibrarySystemTest
 
         // Validate that the exception message is correct
         assertEquals("Copies available must be non-negative", exception.getMessage());
+    }
+
+    @Test
+    public void testAddBook() {
+        LibraryManagementSystem library = new LibraryManagementSystem();
+        Book book = new Book("978-0135166307", "Effective Java", "Joshua Bloch", 2018, 1);
+
+        library.addBook(book);
+
+        Book addedBook = library.getBook("978-0135166307");
+        assertNotNull(addedBook, "Book should be added to the library");
     }
 
 }

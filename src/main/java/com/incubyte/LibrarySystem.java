@@ -1,4 +1,6 @@
 package com.incubyte;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class LibrarySystem
 {
@@ -50,6 +52,30 @@ public class LibrarySystem
         }
         public int getCopiesAvailable() {
             return copiesAvailable;
+        }
+    }
+
+    interface Library {
+        void addBook(Book book);
+        Book getBook(String ISBN);
+    }
+
+
+    static class LibraryManagementSystem implements Library {
+        private Map<String, Book> bookMap;
+
+        public LibraryManagementSystem() {
+            this.bookMap = new LinkedHashMap<>();
+        }
+
+        @Override
+        public void addBook(Book book) {
+                bookMap.put(book.getISBN(), book);
+        }
+
+        @Override
+        public Book getBook(String ISBN) {
+            return bookMap.get(ISBN);
         }
     }
 }
