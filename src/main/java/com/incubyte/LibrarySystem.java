@@ -58,10 +58,17 @@ public class LibrarySystem
         public void addNewCopy() {
             copiesAvailable += this.copiesAvailable;
         }
+
+        public void borrowBook() {
+                copiesAvailable--;
+        }
     }
 
     interface Library {
         void addBook(Book book);
+
+        void borrowBook(String ISBN);
+
         Book getBook(String ISBN);
     }
 
@@ -85,6 +92,13 @@ public class LibrarySystem
                 bookMap.get(book.getISBN()).addNewCopy();
             } else {
                 bookMap.put(book.getISBN(), book);
+            }
+        }
+
+        @Override
+        public void borrowBook(String ISBN) {
+            if (bookMap.containsKey(ISBN)) {
+                bookMap.get(ISBN).borrowBook();
             }
         }
 

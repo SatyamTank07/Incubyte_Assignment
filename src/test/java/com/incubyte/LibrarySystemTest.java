@@ -104,7 +104,21 @@ public class LibrarySystemTest
 
         Book addedBook = library.getBook("978-0135166307");
         assertNotNull(addedBook, "Book should be added to the library");
-        assertEquals(2, addedBook.getCopiesAvailable(), "Copies available should be 4");
+        assertEquals(2, addedBook.getCopiesAvailable(), "Copies available should be 2");
+    }
+
+    @Test
+    public void testBorrowBook() {
+        LibraryManagementSystem library = new LibraryManagementSystem();
+        Book book1 = new Book("978-0135166307", "Effective Java", "Joshua Bloch", 2018, 3);
+        Book book2 = new Book("978-0596009205", "Head First Java", "Kathy Sierra, Bert Bates", 2005, 4);
+
+        library.addBook(book1);
+        library.addBook(book2); // Adding the same book again
+
+        library.borrowBook("978-0135166307");
+        assertEquals(2,book1.getCopiesAvailable(),"Copies available should be 2");
+
     }
 
 }
