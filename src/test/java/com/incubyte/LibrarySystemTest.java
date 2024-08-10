@@ -94,4 +94,17 @@ public class LibrarySystemTest
 
     }
 
+    @Test
+    public void testAddBookWithExistingISBN() {
+        LibraryManagementSystem library = new LibraryManagementSystem();
+        Book book = new Book("978-0135166307", "Effective Java", "Joshua Bloch", 2018, 1);
+
+        library.addBook(book);
+        library.addBook(book); // Adding the same book again
+
+        Book addedBook = library.getBook("978-0135166307");
+        assertNotNull(addedBook, "Book should be added to the library");
+        assertEquals(2, addedBook.getCopiesAvailable(), "Copies available should be 4");
+    }
+
 }

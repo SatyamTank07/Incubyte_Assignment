@@ -54,6 +54,10 @@ public class LibrarySystem
         public int getCopiesAvailable() {
             return copiesAvailable;
         }
+
+        public void addNewCopy() {
+            copiesAvailable += this.copiesAvailable;
+        }
     }
 
     interface Library {
@@ -77,7 +81,11 @@ public class LibrarySystem
             if (book.getCopiesAvailable() < 1) {
                 throw new IllegalArgumentException("Book should have at least one copy");
             }
-            bookMap.put(book.getISBN(), book);
+            if (bookMap.containsKey(book.getISBN())) {
+                bookMap.get(book.getISBN()).addNewCopy();
+            } else {
+                bookMap.put(book.getISBN(), book);
+            }
         }
 
         @Override
