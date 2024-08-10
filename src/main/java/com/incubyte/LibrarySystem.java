@@ -70,6 +70,9 @@ public class LibrarySystem
 
         @Override
         public void addBook(Book book) {
+            if (book == null) {
+                throw new NullPointerException("Book cannot be null");
+            }
                 bookMap.put(book.getISBN(), book);
         }
 

@@ -1,14 +1,12 @@
 package com.incubyte;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import org.junit.jupiter.api.Test;
 //import org.junit.Test;
 
 import com.incubyte.LibrarySystem.LibraryManagementSystem;
 import com.incubyte.LibrarySystem.Book;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class LibrarySystemTest 
 {
@@ -67,6 +65,18 @@ public class LibrarySystemTest
 
         Book addedBook = library.getBook("978-0135166307");
         assertNotNull(addedBook, "Book should be added to the library");
+    }
+
+    @Test
+    public void testAddNullBook() {
+        LibraryManagementSystem library = new LibraryManagementSystem();
+
+        try {
+            library.addBook(null);
+            fail("Expected NullPointerException not thrown");
+        } catch (NullPointerException e) {
+            assertEquals("Book cannot be null", e.getMessage());
+        }
     }
 
 }
