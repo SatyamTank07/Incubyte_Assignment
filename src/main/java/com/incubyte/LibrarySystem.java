@@ -60,7 +60,11 @@ public class LibrarySystem
         }
 
         public void borrowBook() {
+            if (copiesAvailable > 0) {
                 copiesAvailable--;
+            } else {
+                throw new IllegalStateException("No copies available to borrow.");
+            }
         }
     }
 

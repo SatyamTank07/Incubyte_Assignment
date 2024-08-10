@@ -114,11 +114,23 @@ public class LibrarySystemTest
         Book book2 = new Book("978-0596009205", "Head First Java", "Kathy Sierra, Bert Bates", 2005, 4);
 
         library.addBook(book1);
-        library.addBook(book2); // Adding the same book again
+        library.addBook(book2);
 
         library.borrowBook("978-0135166307");
         assertEquals(2,book1.getCopiesAvailable(),"Copies available should be 2");
+    }
 
+    @Test
+    public void testwithZerocopys() {
+        LibraryManagementSystem library = new LibraryManagementSystem();
+        Book book1 = new Book("978-0135166307", "Effective Java", "Joshua Bloch", 2018, 1);
+
+        library.addBook(book1);
+
+        library.borrowBook("978-0135166307");
+        assertThrows(IllegalStateException.class, () -> {
+            library.borrowBook("978-0135166307");
+        }, "Should throw IllegalStateException when no copies are available to borrow");
     }
 
 }
