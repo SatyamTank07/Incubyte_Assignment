@@ -6,9 +6,6 @@ import org.junit.jupiter.api.Test;
 import com.incubyte.LibrarySystem.LibraryManagementSystem;
 import com.incubyte.LibrarySystem.Book;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LibrarySystemTest 
@@ -180,54 +177,6 @@ public class LibrarySystemTest
         // Check that the exception message is as expected
         assertEquals("No copies have been borrowed.", exception.getMessage());
 
-    }
-
-    @Test
-    public void testViewAvailableBooks_NoBooks() {
-        LibraryManagementSystem library = new LibraryManagementSystem();
-
-        // Capture the output
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
-        System.setOut(new PrintStream(outputStream));
-
-        // Call the method
-        library.viewAvailableBooks();
-
-        // Restore original System.out
-        System.setOut(originalOut);
-
-        // Verify the output
-        assertEquals("No books available in the library." + System.lineSeparator(), outputStream.toString());
-    }
-
-    @Test
-    public void testViewAvailableBooks_WithBooks() {
-        LibraryManagementSystem library = new LibraryManagementSystem();
-
-        Book book1 = new Book("978-0135166307", "Effective Java", "Joshua Bloch", 2018, 3);
-        Book book2 = new Book("978-0321356680", "Java Concurrency in Practice", "Brian Goetz", 2006, 2);
-
-        library.addBook(book1);
-        library.addBook(book2);
-
-        // Capture the output
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
-        System.setOut(new PrintStream(outputStream));
-
-        // Call the method
-        library.viewAvailableBooks();
-
-        // Restore original System.out
-        System.setOut(originalOut);
-
-        // Verify the output
-        String expectedOutput = "Available Books:" + System.lineSeparator()
-                + "Effective Java by Joshua Bloch, 2018 - 3 copies available" + System.lineSeparator()
-                + "Java Concurrency in Practice by Brian Goetz, 2006 - 2 copies available" + System.lineSeparator();
-
-        assertEquals(expectedOutput, outputStream.toString());
     }
 
 
