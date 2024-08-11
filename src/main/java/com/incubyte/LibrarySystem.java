@@ -71,6 +71,10 @@ public class LibrarySystem
             }
         }
 
+        public String getBookDetails() {
+            return title + " by " + author + ", " + year + " - " + copiesAvailable + " copies available";
+        }
+
         public void returnBook() {
             if (borrowCount > 0) {
                 copiesAvailable++;
@@ -91,6 +95,7 @@ public class LibrarySystem
         String getAvailableBooks();
 
         Book getBook(String ISBN);
+
     }
 
 
@@ -142,8 +147,13 @@ public class LibrarySystem
         public String getAvailableBooks() {
             if (bookMap.isEmpty()) {
                 return "No books available in the library.";
+            } else {
+                StringBuilder availableBooks = new StringBuilder("Available Books:\n");
+                for (Book book : bookMap.values()) {
+                    availableBooks.append(book.getBookDetails()).append("\n");
+                }
+                return availableBooks.toString();
             }
-            return "Null";
         }
         @Override
         public Book getBook(String ISBN) {

@@ -188,4 +188,25 @@ public class LibrarySystemTest
         assertEquals("No books available in the library.", result);
     }
 
+    @Test
+    public void testGetAvailableBooks_WithBooks() {
+        LibrarySystem.LibraryManagementSystem library = new LibrarySystem.LibraryManagementSystem();
+
+        LibrarySystem.Book book1 = new LibrarySystem.Book("978-0135166307", "Effective Java", "Joshua Bloch", 2018, 3);
+        LibrarySystem.Book book2 = new LibrarySystem.Book("978-0321356680", "Java Concurrency in Practice", "Brian Goetz", 2006, 2);
+
+        library.addBook(book1);
+        library.addBook(book2);
+        library.borrowBook("978-0135166307");
+        library.borrowBook("978-0321356680");
+        library.returnBook("978-0135166307");
+
+        String result = library.getAvailableBooks();
+
+        String expectedOutput = "Available Books:\n"
+                + "Effective Java by Joshua Bloch, 2018 - 3 copies available\n"
+                + "Java Concurrency in Practice by Brian Goetz, 2006 - 1 copies available\n";
+
+        assertEquals(expectedOutput, result);
+    }
 }
