@@ -79,6 +79,10 @@ public class LibrarySystem
                 throw new IllegalStateException("No copies have been borrowed.");
             }
         }
+
+        public void display() {
+            System.out.println(title + " by " + author + ", " + year + " - " + copiesAvailable + " copies available");
+        }
     }
 
     interface Library {
@@ -87,6 +91,9 @@ public class LibrarySystem
         void borrowBook(String ISBN);
 
         void returnBook(String ISBN);
+
+        void viewAvailableBooks();
+
 
         Book getBook(String ISBN);
     }
@@ -135,6 +142,19 @@ public class LibrarySystem
                 throw new IllegalArgumentException("Book with ISBN '" + ISBN + "' not found.");
             }
         }
+
+        @Override
+        public void viewAvailableBooks() {
+            if (bookMap.isEmpty()) {
+                System.out.println("No books available in the library.");
+            } else {
+                System.out.println("Available Books:");
+                for (Book book : bookMap.values()) {
+                    book.display();
+                }
+            }
+        }
+
         @Override
         public Book getBook(String ISBN) {
             return bookMap.get(ISBN);
