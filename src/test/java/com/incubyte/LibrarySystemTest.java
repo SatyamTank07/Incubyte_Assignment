@@ -179,5 +179,13 @@ public class LibrarySystemTest
 
     }
 
+    @Test
+    public void testGetAvailableBooks_NoBooks() {
+        LibraryManagementSystem library = new LibraryManagementSystem();
+
+        String result = library.getAvailableBooks();
+
+        assertEquals("No books available in the library.", result);
+    }
 
 }

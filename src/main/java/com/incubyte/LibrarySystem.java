@@ -88,6 +88,8 @@ public class LibrarySystem
 
         void returnBook(String ISBN);
 
+        String getAvailableBooks();
+
         Book getBook(String ISBN);
     }
 
@@ -134,6 +136,14 @@ public class LibrarySystem
             }else {
                 throw new IllegalArgumentException("Book with ISBN '" + ISBN + "' not found.");
             }
+        }
+
+        @Override
+        public String getAvailableBooks() {
+            if (bookMap.isEmpty()) {
+                return "No books available in the library.";
+            }
+            return "Null";
         }
         @Override
         public Book getBook(String ISBN) {
